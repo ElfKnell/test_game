@@ -9,10 +9,12 @@ import Foundation
 
 protocol AuthServiceProtocol {
     
-    func func login(withEmail email: String, password: String) async throws
+    func login(withEmail email: String, password: String) async throws
     
-    func signOut()
+    func signOut() throws
     
     func checkUserSession() async throws
+    
+    func deleteUser(userId: String) async throws
     
 }

@@ -9,14 +9,16 @@ import Foundation
 
 protocol UserServiceProtocol {
     
+    var user: User? { get }
+    
     func uploadUserData(id: String,
                         withEmail email: String,
                         username: String) async throws
     
-    func fetchUser(withUid uid: String) async throws -> User
+    func fetchUser(withUid uid: String) async throws
     
     func updateUserProfile(user: User) async throws
     
-    func deleteUser(userId: String?) async throws
+    func deleteUser(userId: String) async throws
     
 }

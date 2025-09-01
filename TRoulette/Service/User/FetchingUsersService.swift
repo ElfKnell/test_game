@@ -6,7 +6,30 @@
 //
 
 import Foundation
+import Firebase
 
-class FetchingUsersService {
+class FetchingUsersService: FetchingUsersServiceProtocol {
+    
+    func fetchUsers(withId currentUserId: String) async throws -> [User] {
+        
+        let snapshot = try await Firestore.firestore()
+            .collection("users")
+            .whereField("id", isNotEqualTo: currentUserId)
+            .getDocuments()
+        
+        var users: [User] = []
+        
+        for document in snapshot.documents {
+                
+            let jsonData = try JSONSerialization
+                .data(withJSONObject: document.data(), options: [])
+            let user = try JSONDecoder().decode(User.self, from: jsonData)
+            users.append(user)
+            
+        }
+        
+        return users
+        
+    }
     
 }

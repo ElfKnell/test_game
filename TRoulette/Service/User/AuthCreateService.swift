@@ -6,7 +6,29 @@
 //
 
 import Foundation
+import FirebaseAuth
 
-class AuthCreateService {
+class AuthCreateService: AuthCreateServiceProtocol {
+    
+    private let userService: UserServiceProtocol
+    
+    init(userService: UserServiceProtocol) {
+        self.userService = userService
+    }
+    
+    func createUser(withEmail email: String,
+                    password: String,
+                    username: String) async throws {
+        
+        let result = try await Auth.auth()
+            .createUser(withEmail: email, password: password)
+        let user =  result.user
+        
+        try await userService.uploadUserData(
+            id: user.uid,
+            withEmail: email,
+            username: username
+        )
+    }
     
 }
