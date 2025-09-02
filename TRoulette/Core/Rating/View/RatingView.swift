@@ -17,41 +17,17 @@ struct RatingView: View {
     
     var body: some View {
         
-        List(viewModel.users) { user in
+        VStack {
             
-            HStack(alignment: .center, spacing: 16) {
+            UserView(user: container.userService.user)
+            
+            List(viewModel.users) { user in
                 
-                VStack(alignment: .leading, spacing: 4) {
-                    
-                    Text(user.username)
-                        .font(.headline)
-                        .foregroundStyle(.primary)
-                    
-                    Text(String(format: "%.2f", user.winRate))
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                    
-                }
-                .padding(.horizontal)
-                
-                Spacer()
-                
-                VStack {
-                    
-                    Text("Chips")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                    
-                    Text("\(user.numberChips)")
-                        .font(.title3)
-                        .bold()
-                        .foregroundStyle(.blue)
-                }
+                UserView(user: user)
                 
             }
             
         }
-        .padding()
         .alert("Error", isPresented: $viewModel.isError) {
             Button("OK", role: .cancel) {}
         } message: {
