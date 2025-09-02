@@ -13,6 +13,10 @@ struct User: Identifiable, Codable, Hashable, Equatable {
     let username: String
     let email: String
     var numberChips: Int
-    var winRate: Double
+    var wins: Int
+    var totalGames: Int
     
+    var winRate: Double {
+        totalGames == 0 ? 0 : (Double(wins) / Double(totalGames)) * 100
+    }
 }

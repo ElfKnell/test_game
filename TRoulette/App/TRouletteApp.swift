@@ -20,11 +20,14 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct TRouletteApp: App {
     
+    @StateObject private var container = DIContainer()
+    
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            GameView()
+                .environmentObject(container)
         }
     }
 }
