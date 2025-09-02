@@ -14,25 +14,6 @@ class UserService: UserServiceProtocol {
     
     var user: User?
     
-    func uploadUserData(id: String, withEmail email: String, username: String) async throws {
-        
-        let user = User(id: id,
-                        username: username,
-                        email: email,
-                        numberChips: 2000,
-                        wins: 0,
-                        totalGames: 0)
-        
-        let userData = try user.toFirestoreData()
-        
-        try await Firestore.firestore()
-            .collection(collectionName)
-            .document(id)
-            .setData(userData)
-        
-        try await fetchUser(withUid: id)
-    }
-    
     func fetchUser(withUid uid: String) async throws {
         
         let snapshot = try await Firestore.firestore()
@@ -48,6 +29,7 @@ class UserService: UserServiceProtocol {
             
         let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
         let user = try JSONDecoder().decode(User.self, from: jsonData)
+        print(user.id)
         self.user = user
         
     }

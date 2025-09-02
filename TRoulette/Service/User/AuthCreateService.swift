@@ -10,15 +10,15 @@ import FirebaseAuth
 
 class AuthCreateService: AuthCreateServiceProtocol {
     
-    private let userService: UserServiceProtocol
+    private let userService: UserCreateServiceProtocol
     
-    init(userService: UserServiceProtocol) {
+    init(userService: UserCreateServiceProtocol) {
         self.userService = userService
     }
     
     func createUser(withEmail email: String,
                     password: String,
-                    username: String) async throws {
+                    username: String) async throws -> String {
         
         let result = try await Auth.auth()
             .createUser(withEmail: email, password: password)
@@ -29,6 +29,8 @@ class AuthCreateService: AuthCreateServiceProtocol {
             withEmail: email,
             username: username
         )
+        
+        return user.uid
     }
     
 }

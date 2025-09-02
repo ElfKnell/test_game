@@ -1,16 +1,27 @@
 //
-//  LoginView.swift
+//  RegistrationView.swift
 //  TRoulette
 //
-//  Created by Andrii Kyrychenko on 01/09/2025.
+//  Created by Andrii Kyrychenko on 02/09/2025.
 //
 
 import SwiftUI
 
-struct LoginView: View {
+struct RegistrationView: View {
     
-    @State var viewModel = LoginViewModel()
+    @State var viewModel: RegistrationViewModel
     @EnvironmentObject var container: DIContainer
+    
+    init(viewModelBuilder: @escaping () -> RegistrationViewModel = {
+        RegistrationViewModel(
+            createAuth: AuthCreateService(
+                userService: UserCreateService())
+        )
+    }) {
+        self._viewModel = State(wrappedValue: viewModelBuilder())
+    }
+    
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         
@@ -19,6 +30,9 @@ struct LoginView: View {
             Form {
                 
                 Section(header: Text("Login Credentials")) {
+                    
+                    TextField("Username", text: $viewModel.username)
+                        .autocorrectionDisabled(true)
                     
                     TextField("Email", text: $viewModel.email)
                         .keyboardType(.emailAddress)
@@ -34,13 +48,12 @@ struct LoginView: View {
                     
                     Button {
                         Task {
-                            await viewModel
-                                .login(
-                                    container: container.authService
-                                )
+                            await viewModel.register(container: container.userService)
+                            
+                            dismiss()
                         }
                     } label: {
-                        Text("Login")
+                        Text("Create")
                             .foregroundStyle(.white)
                             .font(.headline)
                             .padding()
@@ -57,26 +70,27 @@ struct LoginView: View {
                     
                     VStack(spacing: 8) {
                         
-                        Text("Don't have an account?")
-                            .font(.system(size: 20, design: .serif))
+                        Text("Already have an account?")
+                            .font(.system(size: 20))
                         
-                        NavigationLink {
-                            RegistrationView()
-                                .navigationBarBackButtonHidden(true)
+                        Button {
+                            dismiss()
                         } label: {
-                            Text("Sign up")
+                            Text("Sign in")
                                 .bold()
                                 .underline()
                                 .font(.system(size: 23))
-                                .foregroundStyle(.primary)
+                                .foregroundStyle(.white)
                                 .padding()
                         }
                     }
+                    .frame(maxWidth: .infinity,
+                           alignment: .center)
                 }
                 
             }
             .navigationTitle("Sign In")
-            .alert("Login Error", isPresented: $viewModel.isLoginError) {
+            .alert("Login Error", isPresented: $viewModel.isCreateError) {
                 Button("OK", role: .cancel) {}
             } message: {
                 Text(viewModel.errorMessage ?? "unknown error")
@@ -86,5 +100,5 @@ struct LoginView: View {
 }
 
 #Preview {
-    LoginView()
+    RegistrationView()
 }

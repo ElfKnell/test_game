@@ -11,10 +11,6 @@ protocol UserServiceProtocol {
     
     var user: User? { get }
     
-    func uploadUserData(id: String,
-                        withEmail email: String,
-                        username: String) async throws
-    
     func fetchUser(withUid uid: String) async throws
     
     func deleteUser(userId: String) async throws

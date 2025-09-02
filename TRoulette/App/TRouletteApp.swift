@@ -26,7 +26,7 @@ struct TRouletteApp: App {
     
     var body: some Scene {
         WindowGroup {
-            GameView()
+            TRouletteRootView()
                 .environmentObject(container)
         }
     }

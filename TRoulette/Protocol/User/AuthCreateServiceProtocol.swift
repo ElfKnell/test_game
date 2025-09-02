@@ -11,6 +11,6 @@ protocol AuthCreateServiceProtocol {
     
     func createUser(withEmail email: String,
                     password: String,
-                    username: String) async throws
+                    username: String) async throws -> String
     
 }
