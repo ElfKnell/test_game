@@ -10,6 +10,8 @@ import Firebase
 
 class UserUpdateService: UserUpdateServiceProtocol {
     
+    private let collectionName = "users"
+    
     func updateUserProfile(user: User) async throws {
         
         try await Firestore.firestore()

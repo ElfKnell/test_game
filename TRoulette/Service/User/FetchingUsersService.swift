@@ -28,7 +28,7 @@ class FetchingUsersService: FetchingUsersServiceProtocol {
             
         }
         
-        return users
+        return users.sorted(by: { $0.winRate > $1.winRate })
         
     }
     

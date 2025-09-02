@@ -179,6 +179,11 @@ struct GameView: View {
                 }
             }
             .padding()
+            .alert("Error", isPresented: $viewModel.isError) {
+                Button("OK", role: .cancel) {}
+            } message: {
+                Text(viewModel.errorMessage ?? "unknown error")
+            }
         }
     }
     

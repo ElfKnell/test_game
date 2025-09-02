@@ -17,8 +17,6 @@ protocol UserServiceProtocol {
     
     func fetchUser(withUid uid: String) async throws
     
-    func updateUserProfile(user: User) async throws
-    
     func deleteUser(userId: String) async throws
     
 }
