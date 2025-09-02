@@ -14,7 +14,6 @@ class FetchingUsersService: FetchingUsersServiceProtocol {
         
         let snapshot = try await Firestore.firestore()
             .collection("users")
-            .whereField("id", isNotEqualTo: currentUserId)
             .getDocuments()
         
         var users: [User] = []

@@ -7,7 +7,9 @@
 
 import Foundation
 import Firebase
+import Observation
 
+@Observable
 class UserService: UserServiceProtocol {
     
     private let collectionName = "users"
@@ -34,6 +36,11 @@ class UserService: UserServiceProtocol {
         
     }
     
+    func logOut() {
+        self.user = nil
+        print("------------------------------------")
+    }
+    
     func deleteUser(userId: String) async throws {
         
         try await Firestore.firestore()
@@ -41,6 +48,7 @@ class UserService: UserServiceProtocol {
             .document(userId)
             .delete()
         
+        self.user = nil
     }
 
 }

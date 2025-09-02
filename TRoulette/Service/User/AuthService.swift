@@ -25,7 +25,10 @@ class AuthService: AuthServiceProtocol {
     }
     
     func signOut() throws {
+        
         try Auth.auth().signOut()
+        userServise.logOut()
+        
     }
     
     func checkUserSession() async throws {

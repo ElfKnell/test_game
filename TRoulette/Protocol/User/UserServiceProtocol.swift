@@ -9,10 +9,11 @@ import Foundation
 
 protocol UserServiceProtocol {
     
-    var user: User? { get }
+    var user: User? { get set }
     
     func fetchUser(withUid uid: String) async throws
     
     func deleteUser(userId: String) async throws
     
+    func logOut()
 }

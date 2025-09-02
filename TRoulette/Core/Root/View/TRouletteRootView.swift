@@ -15,7 +15,7 @@ struct TRouletteRootView: View {
     var body: some View {
         
         Group {
-            if viewModel.isLoggedIn {
+            if container.userService.user != nil {
                 TRouletteTabBar()
             } else {
                 LoginView()
@@ -23,8 +23,7 @@ struct TRouletteRootView: View {
         }
         .task {
             await viewModel
-                .checkSession(
-                    authService: container.authService)
+                .checkSession(container: container)
         }
     }
 }

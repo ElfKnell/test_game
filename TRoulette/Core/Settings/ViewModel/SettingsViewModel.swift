@@ -9,10 +9,12 @@ import Foundation
 import StoreKit
 import UIKit
 import MessageUI
-import Observation
 
-@Observable
-class SettingsViewModel: NSObject, MFMailComposeViewControllerDelegate {
+class SettingsViewModel: NSObject, ObservableObject, MFMailComposeViewControllerDelegate {
+    
+    @Published var isError = false
+    @Published var errorMessage: String? = nil
+    @Published var showMailErrorAlert = false
     
     private let appID = "1111111111"
     
@@ -59,4 +61,35 @@ class SettingsViewModel: NSObject, MFMailComposeViewControllerDelegate {
                                error: Error?) {
         controller.dismiss(animated: true)
     }
+    
+    func logOut(authService: AuthServiceProtocol) {
+        
+        self.errorMessage = nil
+        self.isError = false
+        
+        do {
+            
+            try authService.signOut()
+            
+        } catch {
+            self.errorMessage = error.localizedDescription
+            self.isError = true
+        }
+        
+    }
+    
+    func delete(_ userId: String, authService: AuthServiceProtocol) async {
+        
+        self.errorMessage = nil
+        self.isError = false
+        
+        do {
+            try await authService.deleteUser(userId: userId)
+        } catch {
+            self.errorMessage = error.localizedDescription
+            self.isError = true
+        }
+        
+    }
+    
 }

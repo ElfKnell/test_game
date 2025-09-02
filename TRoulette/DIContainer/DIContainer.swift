@@ -10,12 +10,13 @@ import Foundation
 @MainActor
 final class DIContainer: ObservableObject {
     
-    var authService: AuthServiceProtocol
-    var userService: UserServiceProtocol
+    let authService: AuthServiceProtocol
+    @Published var userService: UserService
     
     init() {
-        self.userService = UserService()
-        self.authService = AuthService(userServise: self.userService)
+        let userServise = UserService()
+        self.userService = userServise
+        self.authService = AuthService(userServise: userServise)
     }
     
 }
