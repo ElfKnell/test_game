@@ -21,10 +21,11 @@ struct CheckmarkButtonView: View {
             
             Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
                 .resizable()
-                .frame(width: 20, height: 20)
+                .frame(width: 17, height: 17)
                 .foregroundColor(isSelected ? .green : .gray)
 
         }
+        .padding(6)
     }
 }
 

@@ -20,12 +20,17 @@ class RatingViewModel: ObservableObject {
         self.fetchUsers = fetchUsers
     }
     
-    func fetchUsers(_ userID: String) async {
+    @MainActor
+    func fetchUsers(_ userID: String?) async {
         
         self.errorMessage = nil
         self.isError = false
         
         do {
+            
+            guard let userID else {
+                throw UserError.userIsNil
+            }
             
             self.users = try await fetchUsers.fetchUsers(withId: userID)
             

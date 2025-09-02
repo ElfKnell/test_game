@@ -10,12 +10,23 @@ import SwiftUI
 struct UserView: View {
     
     let user: User?
+    let numbre: Int?
     
     var body: some View {
         
         if let user {
             
             HStack(alignment: .center, spacing: 16) {
+                
+                if let numbre {
+                    VStack {
+                        Text("\(numbre + 1)")
+                            .font(.system(
+                                size: 30,
+                                weight: .bold)
+                            )
+                    }
+                }
                 
                 VStack(alignment: .leading, spacing: 4) {
                     
@@ -59,5 +70,5 @@ struct UserView: View {
 }
 
 #Preview {
-    UserView(user: nil)
+    UserView(user: nil, numbre: nil)
 }

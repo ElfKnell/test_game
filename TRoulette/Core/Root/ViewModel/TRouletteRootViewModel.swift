@@ -24,12 +24,6 @@ class TRouletteRootViewModel: ObservableObject {
             
             try await container.authService.checkUserSession()
             
-//            if container.userService.user != nil {
-//                isLoggedIn = true
-//            } else {
-//                isLoggedIn = false
-//            }
-            
         } catch {
             self.errorMessage = error.localizedDescription
             self.isError = true

@@ -19,14 +19,21 @@ struct RatingView: View {
         
         VStack {
             
-            UserView(user: container.userService.user)
+            UserView(user: container.userService.user,
+                     numbre: nil)
             
-            List(viewModel.users) { user in
+            List {
                 
-                UserView(user: user)
-                
+                ForEach(Array(viewModel.users.enumerated()), id: \.element.id) { index, user in
+                    UserView(user: user, numbre: index)
+                }
             }
             
+        }
+        .task {
+            await viewModel.fetchUsers(
+                container.userService.user?.id
+            )
         }
         .alert("Error", isPresented: $viewModel.isError) {
             Button("OK", role: .cancel) {}

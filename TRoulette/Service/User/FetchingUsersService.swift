@@ -24,7 +24,6 @@ class FetchingUsersService: FetchingUsersServiceProtocol {
                 .data(withJSONObject: document.data(), options: [])
             let user = try JSONDecoder().decode(User.self, from: jsonData)
             users.append(user)
-            
         }
         
         return users.sorted(by: { $0.winRate > $1.winRate })

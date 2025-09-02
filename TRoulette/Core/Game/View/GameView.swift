@@ -18,6 +18,11 @@ struct GameView: View {
         
         ScrollView {
             
+            UserView(
+                user: container.userService.user,
+                numbre: nil)
+            .padding(.horizontal)
+            
             HStack {
                 
                 VStack {
@@ -163,7 +168,9 @@ struct GameView: View {
                                 await viewModel.start(
                                     user: container
                                         .userService
-                                        .user
+                                        .user,
+                                    userServise: container
+                                        .userService
                                 )
                             }
                         } label: {
@@ -174,11 +181,10 @@ struct GameView: View {
                                 .background(Color.green.opacity(0.8))
                                 .clipShape(RoundedRectangle(cornerRadius: 10))
                         }
-                        .padding()
+                        .padding(.horizontal)
                     }
                 }
             }
-            .padding()
             .alert("Error", isPresented: $viewModel.isError) {
                 Button("OK", role: .cancel) {}
             } message: {

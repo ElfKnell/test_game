@@ -31,14 +31,13 @@ class UserService: UserServiceProtocol {
             
         let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
         let user = try JSONDecoder().decode(User.self, from: jsonData)
-        print(user.id)
+        
         self.user = user
         
     }
     
     func logOut() {
         self.user = nil
-        print("------------------------------------")
     }
     
     func deleteUser(userId: String) async throws {

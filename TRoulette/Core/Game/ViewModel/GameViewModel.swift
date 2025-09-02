@@ -38,7 +38,8 @@ class GameViewModel: ObservableObject {
         selectedNumbers = selectedNumbers == numbers ? nil : numbers
     }
     
-    func start(user: User?) async {
+    @MainActor
+    func start(user: User?, userServise: UserServiceProtocol) async {
         
         errorMessage = nil
         isError = false
@@ -85,6 +86,11 @@ class GameViewModel: ObservableObject {
                 
                 try await updateServise.updateUserProfile(user: user)
             }
+            
+            selectedNumbers = nil
+            value = 10
+            try await userServise.fetchUser(withUid: user.id)
+            
         } catch {
             errorMessage = error.localizedDescription
             isError = true

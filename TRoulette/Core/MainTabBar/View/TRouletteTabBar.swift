@@ -19,6 +19,7 @@ struct TRouletteTabBar: View {
                 .tabItem {
                     Image(systemName: mainSelectedTab == 0 ? "arrowtriangle.right.circle.fill" : "arrowtriangle.right.circle")
                         .environment(\.symbolVariants, mainSelectedTab == 0 ? .fill : .none)
+                    Text("Game")
                 }
                 .tag(0)
             
@@ -26,6 +27,7 @@ struct TRouletteTabBar: View {
                 .tabItem {
                     Image(systemName: mainSelectedTab == 1 ? "r.circle.fill" : "r.circle")
                         .environment(\.symbolVariants, mainSelectedTab == 1 ? .fill : .none)
+                    Text("Rating")
                 }
                 .tag(1)
             
@@ -33,6 +35,7 @@ struct TRouletteTabBar: View {
                 .tabItem {
                     Image(systemName: mainSelectedTab == 2 ? "gearshape.circle.fill" : "gearshape.circle")
                         .environment(\.symbolVariants, mainSelectedTab == 2 ? .fill : .none)
+                    Text("Settings")
                 }
                 .tag(2)
         }
