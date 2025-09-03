@@ -25,7 +25,6 @@ struct CheckmarkButtonView: View {
                 .foregroundColor(isSelected ? .green : .gray)
 
         }
-        .padding(6)
     }
 }
 
